@@ -1,0 +1,48 @@
+[29-Jan-2016 11:09:07 Europe/Berlin] Uncaught exception: 'Exception' with message 'Method notfoundAction not found in controller App\Controllers\Posts'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): Core\Controller->__call('notfound', Array)
+#1 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): App\Controllers\Posts->notfound()
+#2 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('posts/notfound')
+#3 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Controller.php' on line 52
+[29-Jan-2016 11:09:12 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[29-Jan-2016 11:09:21 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('ro')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[29-Jan-2016 11:09:34 Europe/Berlin] Uncaught exception: 'Exception' with message 'Method deleteAction not found in controller App\Controllers\Posts'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): Core\Controller->__call('delete', Array)
+#1 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): App\Controllers\Posts->delete()
+#2 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('posts/delete')
+#3 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Controller.php' on line 52
+[29-Jan-2016 11:17:20 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[29-Jan-2016 11:19:29 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[29-Jan-2016 11:19:47 Europe/Berlin] Uncaught exception: 'Exception' with message 'Method nooAction not found in controller App\Controllers\Posts'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): Core\Controller->__call('noo', Array)
+#1 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): App\Controllers\Posts->noo()
+#2 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('posts/noo')
+#3 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Controller.php' on line 52
+[29-Jan-2016 18:45:44 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('favicon.ico')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[29-Jan-2016 18:48:59 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Router.php' on line 130
+[29-Jan-2016 18:49:11 Europe/Berlin] Uncaught exception: 'Exception' with message 'Method neeAction not found in controller App\Controllers\Posts'
+Stack trace: #0 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): Core\Controller->__call('nee', Array)
+#1 /home/noddy/projects/phpmvc/7-080/Core/Router.php(121): App\Controllers\Posts->nee()
+#2 /home/noddy/projects/phpmvc/7-080/public/index.php(47): Core\Router->dispatch('posts/nee')
+#3 {main}
+Thrown in '/home/noddy/projects/phpmvc/7-080/Core/Controller.php' on line 52
