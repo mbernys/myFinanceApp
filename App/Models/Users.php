@@ -9,13 +9,25 @@ class Users extends Model
 {
     private $email;
     private $password;
+    private $isCreate;
 
     public function __construct($email, $password)
     {
         $this->email = $email;
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $this->password = $hash;
-        static::actionDB("INSERT INTO users (email, password) VALUES ( $email, $hash )");
+        if (self::checkUser($this->email)){
+            if(static::actionDB("INSERT INTO `users` (email, password) VALUES ( :email, :hash )", [':email' => $this->email, ':hash' => $this->password])){
+                $this->isCreate = 'true';
+            }
+        } else {
+            $this->isCreate = 'false';
+        }
+        return $this->isCreate;
+    }
+
+    public function __toString(){
+        return $this->isCreate;
     }
 
     public function setPassword($id,$password, $password_again)
@@ -37,5 +49,13 @@ class Users extends Model
             return true;
         }
         return false;
+    }
+
+    public function checkUser($email)
+    {
+        if(static::countDB("SELECT * FROM `users` WHERE email = :email", [':email' => $email]) > 0){
+            return false;
+        }
+        return true;
     }
 }

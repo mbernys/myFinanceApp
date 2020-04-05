@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Core;
 
+use Core\Error;
 use PDO;
-use App\Config;
 use PDOException;
 
 abstract class Model
@@ -13,9 +12,9 @@ abstract class Model
     {
         static $db = null;
 
-        if ($db === null) {
-            $dsn = 'mysql:host=' . Config::DB_HOST . ';dbname=' . Config::DB_NAME . ';charset=utf8';
-            $db = new PDO($dsn, Config::DB_USER, Config::DB_PASSWORD);
+        if ($db === null){
+            $dsn = 'mysql:host=localhost;dbname=myFinanceApp;charset=utf8';
+            $db = new PDO($dsn, 'myFinanceApp','myFinanceApp');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
 
@@ -29,15 +28,36 @@ abstract class Model
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo $e->getMessage();
+            $log_error = new Error();
+            $log_error->saveError($e->getMessage());
         }
     }
 
-    protected static function actionDB($query){
+
+    protected static function countDB($query, $params = []){
         try {
             $db = static::getDB();
-            $db->prepare($query)->execute($query);
+            $st = $db->prepare($query);
+            $st->execute($params);
+            return $st->rowCount();
         } catch (PDOException $e) {
             echo $e->getMessage();
+            $log_error = new Error();
+            $log_error->saveError($e->getMessage());
         }
+    }
+
+    protected static function actionDB($query, $params = []){
+        try {
+            $db = static::getDB();
+            $st = $db->prepare($query);
+            $st->execute($params);
+            return true;
+        } catch (PDOException $e) {
+            $e->getMessage();
+            $log_error = new Error();
+            $log_error->saveError($e->getMessage());
+        }
+        return false;
     }
 }
