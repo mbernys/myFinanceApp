@@ -21,11 +21,30 @@ abstract class Model
         return $db;
     }
 
-    protected static function fetchDB($query){
+    protected static function fetchAllDB($query, $params = []){
         try {
             $db = static::getDB();
-            $stmt = $db->query($query);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $st = $db->prepare($query);
+            $st->execute($params);
+            return $st->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            $log_error = new Error();
+            $log_error->saveError($e->getMessage());
+        }
+    }
+
+    protected static function fetchOneRowFromDB($query, $params = [], $column = null){
+        try {
+            $db = static::getDB();
+            $st = $db->prepare($query);
+            $st->execute($params);
+            $result = $st->fetch(PDO::FETCH_ASSOC);
+            if(!empty($column)){
+                return $result[$column];
+            } else {
+                return $result;
+            }
         } catch (PDOException $e) {
             echo $e->getMessage();
             $log_error = new Error();

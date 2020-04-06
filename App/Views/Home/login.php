@@ -40,6 +40,9 @@
     <div class="form-group">
         <button class="btn btn-primary mr-2" type="submit" name="submit">Sign in!</button>
     </div>
+
+    <div class="alert <?php if(!empty($this->vars['validation'])){ echo $this->vars['validation']['color_class'];}?>" role="alert"><?php if (!empty($this->vars['validation'])){ echo $this->vars['validation']['errors']; } ?></div>
+
 </form>
     <div class="mt-4 text-center">
         <a class="text-secondary" href="../Users/Add">Create account!</a>

@@ -30,20 +30,9 @@ class Users extends Model
         return $this->isCreate;
     }
 
-    public function setPassword($id,$password, $password_again)
+    public function checkPassword($email,$password)
     {
-        if($password === $password_again){
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-            $this->password = $hash;
-            static::actionDB("UPDATE users SET password= $hash WHERE id = $id");
-            return true;
-        }
-        return false;
-    }
-
-    public function checkPassword($password)
-    {
-        $hash = DB::getPassword($this->email);
+        $hash = static::fetchOneRowFromDB("SELECT * FROM `users` WHERE email = :email", [':email' => $email] , 'password');
         $checked = password_verify($password, $hash);
         if ($checked) {
             return true;

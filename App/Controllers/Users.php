@@ -3,46 +3,96 @@
 
 namespace App\Controllers;
 
-use Core\Validation;
 use Core\Controller;
+use Core\Session;
 use App\Models\Users as ModelUsers;
-
 
 class Users extends Controller
 {
     public function Index(){
-        $users = new Users();
         $this->render('Users','index');
     }
     public function Edit(){
-        $users = new Users();
         $this->render('Users','edit');
     }
     public function Login(){
-        $users = new Users();
-        //TODO: Logowanie do systemu
-        // sprawdzanie w bazie usera where user i password to zahashowana wartość - > count, jeśli nie to zwracanie błędów jak w register
-        $this->render('Finances','index');
+
+          if(isset($_POST['submit'])) {
+
+            if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+
+                $users = new ModelUsers($_POST['email'],$_POST['password']);
+
+                if($users->checkPassword($_POST['email'],$_POST['password'])){
+                    $session = new Session();
+                    $session->createSession();
+                    $_SESSION['username'] = $_POST['email'];
+                    header('Location: /myFinanceApp/Finances/Index');
+                } else {
+
+                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => 'Please type correct password!'];
+                    $this->set($data);
+                    $this->render('Home','login');
+
+                }
+
+            } else {
+
+                $data['validation'] = ['color_class' => 'alert-danger', 'errors' => 'Please type correct email address!'];
+                $this->set($data);
+                $this->render('Home','login');
+
+            }
+
+        } else {
+
+            $this->render('Home','login');
+
+        }
+
     }
 
     public function Add(){
-        $users = new Users();
 
         if(isset($_POST['submit'])){
-            $validation = new Validation();
-            if($validation->ValidateUsersAdd() === true){
-                $usersToDB = new ModelUsers($_POST['email'],$_POST['password']);
+
+            if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+
+                if($_POST['password'] == $_POST['password_again']){
+
+                    $usersToDB = new ModelUsers($_POST['email'],$_POST['password']);
+
                     if($usersToDB == 'true'){
+
                         $data['validation'] = ['color_class' => 'alert-success', 'errors' => 'User successfully Registered! Go to <a href="/myFinanceApp/Home/Login">Login Page!</a>'];
+
                     } else {
+
                         $data['validation'] = ['color_class' => 'alert-warning', 'errors' => 'This email already exist!'];
+
                     }
+
                 } else {
-                $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $validation->ValidateUsersAdd()];
+
+                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => 'Please type the same password twice!'];
+
+                }
+
+            } else {
+
+                $data['validation'] = ['color_class' => 'alert-danger', 'errors' => 'Please type correct email address!'];
+
             }
+
             $this->set($data);
+
         }
+
         $this->render('Users','add');
+
     }
 
+    public function ValidateUsersAdd(){
+
+    }
 }
