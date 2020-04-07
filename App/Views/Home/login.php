@@ -1,55 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>myFinanceApp</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="/myFinanceApp/vendor/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
 </head>
-<body>
 
-<div class="container mt-4">
-    <h1 class="header p-4 text-center text-primary">myFinanceApp</h1>
-<form  class="p-3 mb-2 bg-light text-dark rounded border border-primary text-center" action="/myFinanceApp/Users/Login" method="post">
-    <div class="form-group">
-        <h1>Login form</h1>
-        <hr/>
-    </div>
+<body class="bg-gradient-primary">
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-6 text-right pr-2">
-                <label for="email">Login / Email</label>
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                       <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+                        <div class="col-lg-12">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Login!</h1>
+                                </div>
+                                <form class="user" action="/myFinanceApp/Users/Login" method="post">
+                                    <div class="form-group">
+                                        <label for="password">Login / Email</label>
+                                        <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control form-control-user" id="password" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary btn-user btn-block" type="submit" name="submit">Login</button>
+                                    </div>
+
+                                    <div class="alert <?php if(!empty($this->vars['validation'])){ echo $this->vars['validation']['color_class'];}?>" role="alert"><?php if (!empty($this->vars['validation'])){ echo $this->vars['validation']['errors']; } ?></div>
+
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="../Users/Add">Create account!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 text-left pl-2">
-                <input class="bg-light text-dark rounded" type="email" name="email" id="email">
-            </div>
+
         </div>
+
     </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-6 text-right pr-2">
-        <label for="password">Password</label>
-            </div>
-            <div class="col-6 text-left pl-2">
-        <input class="bg-light text-dark rounded" type="password" name="password" id="password">
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <button class="btn btn-primary mr-2" type="submit" name="submit">Sign in!</button>
-    </div>
-
-    <div class="alert <?php if(!empty($this->vars['validation'])){ echo $this->vars['validation']['color_class'];}?>" role="alert"><?php if (!empty($this->vars['validation'])){ echo $this->vars['validation']['errors']; } ?></div>
-
-</form>
-    <div class="mt-4 text-center">
-        <a class="text-secondary" href="../Users/Add">Create account!</a>
-    </div>
 </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+<script src="/myFinanceApp/vendor/js/jquery.min.js"></script>
+<script src="/myFinanceApp/vendor/js/bootstrap.bundle.min.js"></script>
+<script src="/myFinanceApp/vendor/js/jquery.easing.min.js"></script>
+<script src="/myFinanceApp/vendor/js/sb-admin-2.min.js"></script>
+
 </body>
 </html>
+

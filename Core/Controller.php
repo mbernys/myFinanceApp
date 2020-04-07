@@ -6,10 +6,15 @@ namespace Core;
 abstract class Controller
 {
     var $vars = [];
+    var $stringVars = "";
 
     function set($data)
     {
         $this->vars = array_merge($this->vars, $data);
+    }
+    function setString($data)
+    {
+        $this->stringVars = $data;
     }
 
     function render($controller, $action)

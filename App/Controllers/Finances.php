@@ -12,8 +12,6 @@ class Finances extends Controller
         $session = new Session();
         $session->createSession();
         if($session->isLogged()){
-            //TODO: budowa widoku index dla finansów -> tu już musi być jakiś szkielet -> menu po lewej, główny ekran - dashboard
-            // wyświetlenie podsumowania finansó, ogólnie przeróka bootstrap admin 2
             $this->render('Finances','index');
         }
         else {
@@ -21,12 +19,14 @@ class Finances extends Controller
         }
     }
 
-    public function Add(){
+    public function Add($param = ''){
+        //TODO: Create logic for isset Submit
+        $this->setString($param);
         $this->render('Finances','add');
     }
 
-    public function Edit(){
+    public function Edit($param = ''){
+        $this->setString($param);
         $this->render('Finances','show');
     }
-
 }

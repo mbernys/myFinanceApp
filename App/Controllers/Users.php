@@ -9,10 +9,8 @@ use App\Models\Users as ModelUsers;
 
 class Users extends Controller
 {
-    public function Index(){
-        $this->render('Users','index');
-    }
     public function Edit(){
+        //TODO: create Logic for isset Submit (change password only)
         $this->render('Users','edit');
     }
     public function Login(){

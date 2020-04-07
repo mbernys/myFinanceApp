@@ -19,6 +19,6 @@ class Session
     }
 
     public function logOut(){
-        unset($_SESSION['userId']);
+        unset($_SESSION['username']);
     }
 }

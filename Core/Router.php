@@ -8,6 +8,7 @@ class Router
 
     public function dispatch()
     {
+        //TODO: 404 View Create
         $this->request = new Request();
         Router::parse($this->request);
         $controller = $this->loadController();
@@ -47,6 +48,6 @@ class Router
             if(count($explode_url) > 2){
                 $request->params = $explode_url[2];
             }
-        }
+    }
 }
 
