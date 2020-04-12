@@ -10,7 +10,30 @@ use App\Models\Users as ModelUsers;
 class Users extends Controller
 {
     public function Edit(){
-        //TODO: create Logic for isset Submit (change password only)
+
+        $session = new Session();
+        $session->createSession();
+
+
+        if(isset($_POST['submit'])) {
+
+            $users = new ModelUsers($_SESSION['username'],$_POST['password']);
+
+            if($users->checkPassword($_SESSION['username'],$_POST['password'])){
+
+                if($users->changePassword($_POST['new_password'],$_POST['new_password_again'])){
+                    $data['validation'] = ['color_class' => 'alert-success', 'errors' => 'Password successfully changed!'];
+                    $this->set($data);
+                } else {
+                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $users->getErrors()];
+                    $this->set($data);
+                }
+            } else {
+                $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $users->getErrors()];
+                $this->set($data);
+            }
+        }
+
         $this->render('Users','edit');
     }
     public function Login(){

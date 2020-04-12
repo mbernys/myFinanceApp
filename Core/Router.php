@@ -8,11 +8,17 @@ class Router
 
     public function dispatch()
     {
-        //TODO: 404 View Create
         $this->request = new Request();
         Router::parse($this->request);
-        $controller = $this->loadController();
-        call_user_func_array([$controller, $this->request->action], [$this->request->params]);
+
+            $controller = $this->loadController();
+
+            if (is_callable([$controller, $this->request->action])) {
+                call_user_func_array([$controller, $this->request->action], [$this->request->params]);
+            } else {
+                header("HTTP/1.0 404 Not Found");
+                include "../App/Views/404.html";
+            }
     }
 
     public function loadController()
