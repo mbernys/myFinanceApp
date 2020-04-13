@@ -14,17 +14,24 @@ class Finances extends Model
     private $value;
     private $isCreate;
     private $results;
+    private $categories = [];
 
-    public function __construct($user_id, $type, $category_id, $date, $description, $value)
+    public function __construct($type)
     {
         $this->type = $type;
+
+    }
+
+    public function addToDB($username, $category_id, $date, $description, $value)
+    {
+
         $this->category_id = $category_id;
         $this->date = $date;
         $this->description = $description;
         $this->value = $value;
 
-        if(static::actionDB("INSERT INTO finances (user_id, type, category_id, date, description, value) VALUES (:user_id, :type, :category_id, :date, :description, $value )", [':user_id' => $user_id, ':type' => $this->type, ':category_id' => $this->category_id, ':description' => $this->description, ':value' => $this->value])){
-            $this->results = 'Category successfully added!.';
+        if(static::actionDB("INSERT INTO finances (username, type, category_id, date, description, value) VALUES (:username, :type, :category_id, :date, :description, :value )", [':username' => $username, ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
+            $this->results = 'Value successfully added!.';
             $this->isCreate = 'true';
         } else {
             $this->results = 'Something went wrong! Please try again.';
@@ -37,7 +44,19 @@ class Finances extends Model
         return $this->results;
     }
 
-    public function __toString(){
+    /**
+     * @return mixed
+     */
+    public function getIsCreate()
+    {
         return $this->isCreate;
     }
+
+
+    public function getCategories()
+    {
+        return static::fetchAllDB("SELECT id, name FROM categories WHERE type = :type" , [':type' => $this->type]);
+    }
+
+
 }

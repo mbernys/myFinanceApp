@@ -285,7 +285,11 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                   </div>
-                <!-- TODO: Show info after add to DB -->
+                <!-- TODO: Refactor username eto user_id -> DB, session, etc.
+                     TODO: View this month (table with cols: date, category, description, value, color (by type) and last row with SUM)
+                     TODO: View this month (table with values by categories)
+                     TODO: View this month (chart with two values, Y axis - value, color - types, X Axis - days in month) - Chart.js
+                -->
                 <!-- Content Row -->
                 <div class="row">
 

@@ -9,7 +9,7 @@ use App\Models\Finances as ModelFinances;
 
 class Finances extends Controller
 {
-    private $categories = [];
+
 
     public function Index(){
         $session = new Session();
@@ -27,15 +27,21 @@ class Finances extends Controller
         $session = new Session();
         $session->createSession();
         if($session->isLogged()){
+
             $this->setString($param);
 
-            $this->setSelectCategories($param);
+            $finances = new ModelFinances($param);
+
+
+            $data['categories'] = $finances->getCategories();
+
+            $this->set($data);
 
             if(isset($_POST['submit'])) {
 
-                $finances = new ModelFinances($_SESSION['username'], $param, $_POST['category_id'], $_POST['date'], $_POST['description'], $_POST['value']);
+                $finances->addToDB($_SESSION['username'], $_POST['category_id'], $_POST['finance_date'], $_POST['finance_description'], $_POST['finance_value']);
 
-                if ($finances == 'true') {
+                if ($finances->getIsCreate() == 'true') {
 
                     $data['validation'] = ['color_class' => 'alert-success', 'errors' => $finances->getResults()];
 
@@ -55,10 +61,5 @@ class Finances extends Controller
         }
     }
 
-    private function setSelectCategories(string $param)
-    {
-        // TODO: FetchFromDB
-        $this->categories = array_merge($this->categories, $categories);
-    }
 
 }

@@ -18,7 +18,7 @@ class Users extends Model
         $this->email = $email;
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $this->password = $hash;
-        if (self::checkUser($this->email)){
+        if (self::checkUser()){
             if(static::actionDB("INSERT INTO `users` (email, password) VALUES ( :email, :hash )", [':email' => $this->email, ':hash' => $this->password])){
                 $this->isCreate = 'true';
             }

@@ -292,19 +292,26 @@
                     </div>
                     <div class="col-4">
 
-                        <form  class="user"  action="/myFinanceApp/Finances/Add/<?php if(!empty($this->stringVars)){ echo $this->stringVars;} ?>" method="post">
+                        <form  class="user"  action="/myFinanceApp/Finances/Add/<?php
+                        if(!empty($this->stringVars)){ echo $this->stringVars;} ?>" method="post">
                             <div class="form-group">
-                                <label for="name">Description</label>
-                                <input type="text" class="form-control form-control-user" id="category_name" name="category_name" required>
+                                <label for="finance_description">Description</label>
+                                <input type="text" class="form-control form-control-user" id="finance_description" name="finance_description" required>
                             </div>
                             <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select class="form-control form-control-user" style="padding: .4rem 1rem;" id="category_id" name="category_id" required>
                                     <option value="" selected>Select...</option>
-                                    <!--TODO: fetchValues -->
-                                    <option value="Expenses">Expenses</option>
-                                    <option value="Incomes">Incomes</option>
+                                    <?php
+                                    foreach ($this->vars['categories'] as $row){
+                                        echo  "<option value='".$row['id']."'>".$row['name']."</option>";
+                                    }
+                                    ?>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="finance_date">Date</label>
+                                <input type="date" class="form-control form-control-user" id="finance_date" name="finance_date" required>
                             </div>
                             <div class="form-group">
                                 <label for="finance_value">Value</label>

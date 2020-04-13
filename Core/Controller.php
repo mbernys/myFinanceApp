@@ -17,6 +17,7 @@ abstract class Controller
         $this->stringVars = $data;
     }
 
+
     function render($controller, $action)
     {
         extract($this->vars);
