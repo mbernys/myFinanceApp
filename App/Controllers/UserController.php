@@ -5,9 +5,9 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\Session;
-use App\Models\Users as ModelUsers;
+use App\Models\User;
 
-class Users extends Controller
+class UserController extends Controller
 {
     public function Edit(){
 
@@ -17,24 +17,24 @@ class Users extends Controller
 
         if(isset($_POST['submit'])) {
 
-            $users = new ModelUsers($_SESSION['username'],$_POST['password']);
+            $user = new User($_SESSION['user_id'],$_POST['password']);
 
-            if($users->checkPassword($_SESSION['username'],$_POST['password'])){
+            if($user->checkPassword($_SESSION['user_id'],$_POST['password'])){
 
-                if($users->changePassword($_POST['new_password'],$_POST['new_password_again'])){
+                if($user->changePassword($_POST['new_password'],$_POST['new_password_again'])){
                     $data['validation'] = ['color_class' => 'alert-success', 'errors' => 'Password successfully changed!'];
                     $this->set($data);
                 } else {
-                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $users->getErrors()];
+                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $user->getErrors()];
                     $this->set($data);
                 }
             } else {
-                $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $users->getErrors()];
+                $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $user->getErrors()];
                 $this->set($data);
             }
         }
 
-        $this->render('Users','edit');
+        $this->render('User','edit');
     }
     public function Login(){
 
@@ -42,13 +42,13 @@ class Users extends Controller
 
             if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 
-                $users = new ModelUsers($_POST['email'],$_POST['password']);
+                $user = new User($_POST['email'],$_POST['password']);
 
-                if($users->checkPassword($_POST['email'],$_POST['password'])){
+                if($user->checkPassword($_POST['email'],$_POST['password'])){
                     $session = new Session();
                     $session->createSession();
-                    $_SESSION['username'] = $_POST['email'];
-                    header('Location: /myFinanceApp/Finances/Index');
+                    $_SESSION['user_id'] = $user->getId($_POST['email']);
+                    header('Location: /myFinanceApp/Finance/Index');
                 } else {
 
                     $data['validation'] = ['color_class' => 'alert-danger', 'errors' => 'Please type correct password!'];
@@ -81,9 +81,9 @@ class Users extends Controller
 
                 if($_POST['password'] == $_POST['password_again']){
 
-                    $usersToDB = new ModelUsers($_POST['email'],$_POST['password']);
+                    $userToDB = new User($_POST['email'],$_POST['password']);
 
-                    if($usersToDB == 'true'){
+                    if($userToDB == 'true'){
 
                         $data['validation'] = ['color_class' => 'alert-success', 'errors' => 'User successfully Registered! Go to <a href="/myFinanceApp/Home/Login">Login Page!</a>'];
 
@@ -109,7 +109,7 @@ class Users extends Controller
 
         }
 
-        $this->render('Users','add');
+        $this->render('User','add');
 
     }
 

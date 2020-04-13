@@ -12,13 +12,13 @@ class Session
 
     public function isLogged()
     {
-        if (isset($_SESSION['username'])) {
+        if (isset($_SESSION['user_id'])) {
             return true;
         }
         $this->logOut();
     }
 
     public function logOut(){
-        unset($_SESSION['username']);
+        unset($_SESSION['user_id']);
     }
 }

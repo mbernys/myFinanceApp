@@ -25,7 +25,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myFinanceApp/Finances/Index">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myFinanceApp/Finance/Index">
             <div class="sidebar-brand-text mx-3">myFinanceApp</div>
         </a>
 
@@ -34,7 +34,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="/myFinanceApp/Finances/Index">
+            <a class="nav-link" href="/myFinanceApp/Finance/Index">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Summary</span></a>
         </li>
@@ -55,8 +55,8 @@
             </a>
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/myFinanceApp/Finances/Add/Expenses">Add new</a>
-                    <a class="collapse-item" href="/myFinanceApp/Finances/Show/Expenses">Show this month</a>
+                    <a class="collapse-item" href="/myFinanceApp/Finance/Add/Expenses">Add new</a>
+                    <a class="collapse-item" href="/myFinanceApp/Finance/Show/Expenses">Show this month</a>
                 </div>
             </div>
         </li>
@@ -71,8 +71,8 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/myFinanceApp/Finances/Add/Incomes">Add new</a>
-                    <a class="collapse-item" href="/myFinanceApp/Finances/Show/Incomes">Show this month</a>
+                    <a class="collapse-item" href="/myFinanceApp/Finance/Add/Incomes">Add new</a>
+                    <a class="collapse-item" href="/myFinanceApp/Finance/Show/Incomes">Show this month</a>
                 </div>
             </div>
         </li>
@@ -82,7 +82,7 @@
 
 
         <li class="nav-item active">
-            <a class="nav-link" href="/myFinanceApp/Categories/Add">
+            <a class="nav-link" href="/myFinanceApp/Category/Add">
                 <i class="fas fa-fw fa-plus"></i>
                 <span>Add new category</span></a>
         </li>
@@ -256,12 +256,12 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?><i class="fa fa-caret-down ml-3"></i></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['user_id']; ?><i class="fa fa-caret-down ml-3"></i></span>
                             <!-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/myFinanceApp/Users/Edit">
+                            <a class="dropdown-item" href="/myFinanceApp/User/Edit">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -283,7 +283,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Add new category</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
                 </div>
                 <!-- Content Row -->
                 <div class="row">
@@ -292,26 +292,27 @@
                     </div>
                     <div class="col-4">
 
-                        <form  class="user"  action="/myFinanceApp/Categories/Add" method="post">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control form-control-user" id="category_name" name="category_name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="category_type">Type</label>
-                                <select class="form-control form-control-user" style="padding: .4rem 1rem;" id="category_type" name="category_type" required>
-                                    <option value="" selected>Select...</option>
-                                    <option value="Expenses">Expenses</option>
-                                    <option value="Incomes">Incomes</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-user btn-block" type="submit" name="submit">Add!</button>
-                            </div>
+                    <form  class="user"  action="/myFinanceApp/User/Edit" method="post">
+                        <div class="form-group">
+                            <label for="password">Current password</label>
+                            <input type="password" class="form-control form-control-user" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password">New password</label>
+                            <input type="password" class="form-control form-control-user" id="new_password" name="new_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password_again">Re-type new password</label>
+                            <input type="password" class="form-control form-control-user" id="new_password_again" name="new_password_again" required>
+                        </div>
 
-                            <div class="alert <?php if(!empty($this->vars['validation'])){ echo $this->vars['validation']['color_class'];}?>" role="alert"><?php if (!empty($this->vars['validation'])){ echo $this->vars['validation']['errors']; } ?></div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-user btn-block" type="submit" name="submit">Change Password!</button>
+                        </div>
 
-                        </form>
+                        <div class="alert <?php if(!empty($this->vars['validation'])){ echo $this->vars['validation']['color_class'];}?>" role="alert"><?php if (!empty($this->vars['validation'])){ echo $this->vars['validation']['errors']; } ?></div>
+
+                    </form>
 
                     </div>
                 </div>

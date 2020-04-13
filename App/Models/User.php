@@ -4,9 +4,9 @@
 namespace App\Models;
 
 use Core\Model;
-use App\Models\Categories as Categories;
+use App\Models\Category;
 
-class Users extends Model
+class User extends Model
 {
     private $email;
     private $password;
@@ -72,5 +72,10 @@ class Users extends Model
             return false;
         }
         return true;
+    }
+
+    public function getId($email)
+    {
+        return static::fetchOneRowFromDB("SELECT * FROM `users` WHERE email = :email", [':email' => $email] , 'id');
     }
 }

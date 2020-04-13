@@ -5,7 +5,7 @@ namespace App\Models;
 
 use Core\Model;
 
-class Finances extends Model
+class Finance extends Model
 {
     private $type;
     private $category_id;
@@ -22,7 +22,7 @@ class Finances extends Model
 
     }
 
-    public function addToDB($username, $category_id, $date, $description, $value)
+    public function addToDB($user_id, $category_id, $date, $description, $value)
     {
 
         $this->category_id = $category_id;
@@ -30,7 +30,7 @@ class Finances extends Model
         $this->description = $description;
         $this->value = $value;
 
-        if(static::actionDB("INSERT INTO finances (username, type, category_id, date, description, value) VALUES (:username, :type, :category_id, :date, :description, :value )", [':username' => $username, ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
+        if(static::actionDB("INSERT INTO finances (user_id, type, category_id, date, description, value) VALUES (:user_id, :type, :category_id, :date, :description, :value )", [':user_id' => $user_id, ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
             $this->results = 'Value successfully added!.';
             $this->isCreate = 'true';
         } else {

@@ -36,7 +36,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Login!</h1>
                                 </div>
-                                <form class="user" action="/myFinanceApp/Users/Login" method="post">
+                                <form class="user" action="/myFinanceApp/User/Login" method="post">
                                     <div class="form-group">
                                         <label for="password">Login / Email</label>
                                         <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="" required>
@@ -54,7 +54,7 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="../Users/Add">Create account!</a>
+                                    <a class="small" href="../User/Add">Create account!</a>
                                 </div>
                             </div>
                         </div>

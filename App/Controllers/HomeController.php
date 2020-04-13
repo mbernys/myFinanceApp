@@ -6,14 +6,14 @@ namespace App\Controllers;
 use Core\Controller;
 use Core\Session;
 
-class Home extends Controller
+class HomeController extends Controller
 {
     public function Index(){
-        $home = new Home();
+        $home = new HomeController();
         $this->render('Home','index');
     }
     public function Login(){
-        $home = new Home();
+        $home = new HomeController();
         $this->render('Home','login');
     }
     public function Logout(){

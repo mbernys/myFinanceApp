@@ -24,9 +24,9 @@ class Router
     public function loadController()
     {
         $name = $this->request->controller;
-        $file ='../App/Controllers/' . $name . '.php';
+        $file ='../App/Controllers/' . $name . 'Controller.php';
         require($file);
-        $class = "App\Controllers\\".$name;
+        $class = "App\Controllers\\".$name."Controller";
         return new $class();
     }
 

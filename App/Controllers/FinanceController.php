@@ -5,9 +5,9 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\Session;
-use App\Models\Finances as ModelFinances;
+use App\Models\Finance;
 
-class Finances extends Controller
+class FinanceController extends Controller
 {
 
 
@@ -15,7 +15,7 @@ class Finances extends Controller
         $session = new Session();
         $session->createSession();
         if($session->isLogged()){
-            $this->render('Finances','index');
+            $this->render('Finance','index');
         }
         else {
             header('Location: /myFinanceApp/Home/Index');
@@ -30,31 +30,31 @@ class Finances extends Controller
 
             $this->setString($param);
 
-            $finances = new ModelFinances($param);
+            $finance = new Finance($param);
 
 
-            $data['categories'] = $finances->getCategories();
+            $data['categories'] = $finance->getCategories();
 
             $this->set($data);
 
             if(isset($_POST['submit'])) {
 
-                $finances->addToDB($_SESSION['username'], $_POST['category_id'], $_POST['finance_date'], $_POST['finance_description'], $_POST['finance_value']);
+                $finance->addToDB($_SESSION['user_id'], $_POST['category_id'], $_POST['finance_date'], $_POST['finance_description'], $_POST['finance_value']);
 
-                if ($finances->getIsCreate() == 'true') {
+                if ($finance->getIsCreate() == 'true') {
 
-                    $data['validation'] = ['color_class' => 'alert-success', 'errors' => $finances->getResults()];
+                    $data['validation'] = ['color_class' => 'alert-success', 'errors' => $finance->getResults()];
 
                 } else {
 
-                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $finances->getResults()];
+                    $data['validation'] = ['color_class' => 'alert-danger', 'errors' => $finance->getResults()];
 
                 }
 
                 $this->set($data);
             }
 
-            $this->render('Finances','add');
+            $this->render('Finance','add');
         }
         else {
             header('Location: /myFinanceApp/Home/Index');

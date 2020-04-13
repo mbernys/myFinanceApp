@@ -6,12 +6,12 @@ namespace App\Controllers;
 
 use Core\Controller;
 use Core\Session;
-use App\Models\Categories as ModelCategories;
+use App\Models\Category;
 
-class Categories extends Controller
+class CategoryController extends Controller
 {
     public function Index(){
-        $this->render('Categories','index');
+        $this->render('Category','index');
     }
 
      public function Add(){
@@ -20,7 +20,7 @@ class Categories extends Controller
 
          if(isset($_POST['submit'])) {
 
-             $category = new ModelCategories($_POST['category_type'],$_POST['category_name']);
+             $category = new Category($_POST['category_type'],$_POST['category_name']);
 
              if($category == 'true'){
 
@@ -36,6 +36,6 @@ class Categories extends Controller
 
          }
 
-         $this->render('Categories','add');
+         $this->render('Category','add');
      }
 }

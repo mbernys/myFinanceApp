@@ -5,7 +5,7 @@ namespace App\Models;
 
 use Core\Model;
 
-class Categories extends Model
+class Category extends Model
 {
     private $type;
     private $name;
