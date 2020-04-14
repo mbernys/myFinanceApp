@@ -47,6 +47,7 @@ class UserController extends Controller
                 if($user->checkPassword($_POST['email'],$_POST['password'])){
                     $session = new Session();
                     $session->createSession();
+                    $_SESSION['username'] = $_POST['email'];
                     $_SESSION['user_id'] = $user->getId($_POST['email']);
                     header('Location: /myFinanceApp/Finance/Index');
                 } else {

@@ -1,4 +1,4 @@
-<?php include('../Layouts/Default/header.php');?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/myFinanceApp/App/Views/Layouts/Default/header.php'); ?>
 
 <div class="container">
 
@@ -53,5 +53,4 @@
     </div>
 
 </div>
-
-<?php include('../Layouts/Default/footer.php');?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/myFinanceApp/App/Views/Layouts/Default/footer.php'); ?>
