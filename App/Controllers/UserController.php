@@ -17,7 +17,7 @@ class UserController extends Controller
 
         if(isset($_POST['submit'])) {
 
-            $user = new User($_SESSION['user_id'],$_POST['password']);
+            $user = new User();
 
             if($user->checkPassword($_SESSION['user_id'],$_POST['password'])){
 
@@ -42,13 +42,15 @@ class UserController extends Controller
 
             if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 
-                $user = new User($_POST['email'],$_POST['password']);
+                $user = new User();
 
                 if($user->checkPassword($_POST['email'],$_POST['password'])){
                     $session = new Session();
                     $session->createSession();
+                    $user->setEmail($_POST['email']);
+                    $user->setPassword($_POST['password']);
                     $_SESSION['username'] = $_POST['email'];
-                    $_SESSION['user_id'] = $user->getId($_POST['email']);
+                    $_SESSION['user_id'] = $user->getId();
                     header('Location: /myFinanceApp/Finance/Index');
                 } else {
 
@@ -82,9 +84,11 @@ class UserController extends Controller
 
                 if($_POST['password'] == $_POST['password_again']){
 
-                    $userToDB = new User($_POST['email'],$_POST['password']);
+                    $user = new User();
+                    $user->setEmail($_POST['email']);
+                    $user->setPassword($_POST['password']);
 
-                    if($userToDB == 'true'){
+                    if($user->saveToDatabase() === true){
 
                         $data['validation'] = ['color_class' => 'alert-success', 'errors' => 'User successfully Registered! Go to <a href="/myFinanceApp/Home/Login">Login Page!</a>'];
 
@@ -114,7 +118,4 @@ class UserController extends Controller
 
     }
 
-    public function ValidateUsersAdd(){
-
-    }
 }

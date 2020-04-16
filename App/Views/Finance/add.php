@@ -19,7 +19,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Add new <?php if(!empty($this->stringVars)){ echo $this->stringVars;} ?></h1>
+                    <h1 class="h3 mb-0 text-gray-800">Add new <?php if(!empty($this->vars['type'])){ echo $this->vars['type']['finance_type'];}?></h1>
                 </div>
                 <!-- Content Row -->
                 <div class="row">
@@ -29,7 +29,7 @@
                     <div class="col-4">
 
                         <form  class="user"  action="/myFinanceApp/Finance/Add/<?php
-                        if(!empty($this->stringVars)){ echo $this->stringVars;} ?>" method="post">
+                        if(!empty($this->vars['type'])){ echo $this->vars['type']['finance_type'];}?>" method="post">
                             <div class="form-group">
                                 <label for="finance_description">Description</label>
                                 <input type="text" class="form-control form-control-user" id="finance_description" name="finance_description" required>

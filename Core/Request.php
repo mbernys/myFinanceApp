@@ -5,10 +5,10 @@ namespace Core;
 
     class Request
     {
-        public $url;
-        public $action;
-        public $params;
-        public $controller;
+        public string $url;
+        public string $action;
+        public string $params = '';
+        public string $controller;
 
         public function __construct()
         {

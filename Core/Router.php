@@ -4,29 +4,26 @@ namespace Core;
 
 class Router
 {
-    private $request;
-
     public function dispatch()
     {
-        $this->request = new Request();
-        Router::parse($this->request);
+        $request = new Request();
+        Router::parse($request);
 
-            $controller = $this->loadController();
+            $checkClass = $this->loadController($request->controller);
 
-            if (is_callable([$controller, $this->request->action])) {
-                call_user_func_array([$controller, $this->request->action], [$this->request->params]);
+            if (is_callable([$checkClass, $request->action])) {
+                call_user_func_array([$checkClass, $request->action], [$request->params]);
             } else {
                 header("HTTP/1.0 404 Not Found");
                 include "../App/Views/404.html";
             }
     }
 
-    public function loadController()
+    public function loadController($controller)
     {
-        $name = $this->request->controller;
-        $file ='../App/Controllers/' . $name . 'Controller.php';
+        $file ='../App/Controllers/' . $controller . 'Controller.php';
         require($file);
-        $class = "App\Controllers\\".$name."Controller";
+        $class = "App\Controllers\\". $controller ."Controller";
         return new $class();
     }
 

@@ -10,10 +10,11 @@ use App\Models\Finance;
 class FinanceController extends Controller
 {
 
-
     public function Index(){
+
         $session = new Session();
         $session->createSession();
+
         if($session->isLogged()){
             $this->render('Finance','index');
         }
@@ -26,12 +27,15 @@ class FinanceController extends Controller
 
         $session = new Session();
         $session->createSession();
-        if($session->isLogged()){
 
-            $this->setString($param);
+        if($session->isLogged()) {
 
-            $finance = new Finance($param);
-
+            if (!empty($param)) {
+                $data['type'] = ['finance_type' => $param];
+                $this->set($data);
+            }
+            $finance = new Finance();
+            $finance->setType($param);
 
             $data['categories'] = $finance->getCategories();
 
@@ -39,7 +43,12 @@ class FinanceController extends Controller
 
             if(isset($_POST['submit'])) {
 
-                $finance->addToDB($_SESSION['user_id'], $_POST['category_id'], $_POST['finance_date'], $_POST['finance_description'], $_POST['finance_value']);
+                $finance->setCategoryId($_POST['category_id']);
+                $finance->setDate($_POST['finance_date']);
+                $finance->setDescription($_POST['finance_description']);
+                $finance->setValue($_POST['finance_value']);
+
+                $finance->saveToDatabase();
 
                 if ($finance->getIsCreate() == 'true') {
 

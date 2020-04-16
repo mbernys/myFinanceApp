@@ -7,30 +7,43 @@ use Core\Model;
 
 class Finance extends Model
 {
-    private $type;
-    private $category_id;
-    private $date;
-    private $description;
-    private $value;
-    private $isCreate;
-    private $results;
-    private $categories = [];
+    private string $type;
+    private int $category_id;
+    private string $date;
+    private string $description;
+    private string $value;
+    private string $isCreate;
+    private string $results;
 
-    public function __construct($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
-
     }
 
-    public function addToDB($user_id, $category_id, $date, $description, $value)
+    public function setCategoryId(int $category_id): void
+    {
+        $this->category_id = $category_id;
+    }
+
+    public function setDate(string $date): void
+    {
+        $this->date = $date;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
+    }
+
+    public function saveToDatabase()
     {
 
-        $this->category_id = $category_id;
-        $this->date = $date;
-        $this->description = $description;
-        $this->value = $value;
-
-        if(static::actionDB("INSERT INTO finances (user_id, type, category_id, date, description, value) VALUES (:user_id, :type, :category_id, :date, :description, :value )", [':user_id' => $user_id, ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
+        if(static::actionDB("INSERT INTO finances (user_id, type, category_id, date, description, value) VALUES (:user_id, :type, :category_id, :date, :description, :value )", [':user_id' => $_SESSION['user_id'], ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
             $this->results = 'Value successfully added!.';
             $this->isCreate = 'true';
         } else {
@@ -44,9 +57,6 @@ class Finance extends Model
         return $this->results;
     }
 
-    /**
-     * @return mixed
-     */
     public function getIsCreate()
     {
         return $this->isCreate;

@@ -3,7 +3,6 @@
 
 namespace Core;
 
-
 class Session
 {
     public function createSession(){

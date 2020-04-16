@@ -30,7 +30,7 @@
 
                         <form  class="user"  action="/myFinanceApp/Category/Add" method="post">
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="category_name">Name</label>
                                 <input type="text" class="form-control form-control-user" id="category_name" name="category_name" required>
                             </div>
                             <div class="form-group">

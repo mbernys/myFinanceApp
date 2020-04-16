@@ -2,7 +2,6 @@
 
 namespace Core;
 
-use Core\Error;
 use PDO;
 use PDOException;
 
@@ -14,10 +13,9 @@ abstract class Model
 
         if ($db === null){
             $dsn = 'mysql:host=localhost;dbname=myFinanceApp;charset=utf8';
-            $db = new PDO($dsn, 'myFinanceApp','myFinanceApp');
+            $db = new PDO($dsn, 'myFinanceApp','45TGBnhy67');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
-
         return $db;
     }
 
@@ -32,6 +30,7 @@ abstract class Model
             $log_error = new Error();
             $log_error->saveError($e->getMessage());
         }
+        return false;
     }
 
     protected static function fetchOneRowFromDB($query, $params = [], $column = null){
@@ -50,6 +49,7 @@ abstract class Model
             $log_error = new Error();
             $log_error->saveError($e->getMessage());
         }
+        return false;
     }
 
 
@@ -64,6 +64,7 @@ abstract class Model
             $log_error = new Error();
             $log_error->saveError($e->getMessage());
         }
+        return false;
     }
 
     protected static function actionDB($query, $params = []){

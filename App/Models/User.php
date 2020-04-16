@@ -8,28 +8,28 @@ use App\Models\Category;
 
 class User extends Model
 {
-    private $email;
-    private $password;
-    private $isCreate;
-    private $errors;
+    private string $email = '';
+    private string $password = '';
+    private string $errors;
 
-    public function __construct($email, $password)
+    public function saveToDatabase()
     {
-        $this->email = $email;
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $this->password = $hash;
         if (self::checkUser()){
-            if(static::actionDB("INSERT INTO `users` (email, password) VALUES ( :email, :hash )", [':email' => $this->email, ':hash' => $this->password])){
-                $this->isCreate = 'true';
+            if(static::actionDB("INSERT INTO `users` (email, password) VALUES ( :email, :password )", [':email' => $this->email, ':password' => $this->password])){
+                return true;
             }
-        } else {
-            $this->isCreate = 'false';
         }
-        return $this->isCreate;
+        return false;
     }
 
-    public function __toString(){
-        return $this->isCreate;
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
     public function checkPassword($email,$password)
@@ -58,9 +58,6 @@ class User extends Model
         return false;
     }
 
-    /**
-     * @return mixed
-     */
     public function getErrors()
     {
         return $this->errors;
@@ -74,8 +71,8 @@ class User extends Model
         return true;
     }
 
-    public function getId($email)
+    public function getId()
     {
-        return static::fetchOneRowFromDB("SELECT * FROM `users` WHERE email = :email", [':email' => $email] , 'id');
+        return static::fetchOneRowFromDB("SELECT * FROM `users` WHERE email = :email", [':email' => $this->email] , 'id');
     }
 }

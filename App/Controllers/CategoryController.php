@@ -20,9 +20,11 @@ class CategoryController extends Controller
 
          if(isset($_POST['submit'])) {
 
-             $category = new Category($_POST['category_type'],$_POST['category_name']);
+             $category = new Category();
+             $category->setType($_POST['category_type']);
+             $category->setName($_POST['category_name']);
 
-             if($category == 'true'){
+             if($category->saveToDatabase() === true){
 
                  $data['validation'] = ['color_class' => 'alert-success', 'errors' => $category->getResults()];
 
