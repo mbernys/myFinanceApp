@@ -16,6 +16,20 @@ class FinanceController extends Controller
         $session->createSession();
 
         if($session->isLogged()){
+
+            $finance = new Finance();
+
+            $balanceLastMonth = $finance->getBalance(date('Y-m-d', strtotime(date('Y-m-d') . ' - 1 month')),"'%Y-%m'");
+            $balanceThisMonth = $finance->getBalance(date('Y-m-d'),"'%Y-%m'");
+            $balanceLastYear = $finance->getBalance(date('Y-m-d', strtotime(date('Y-m-d') . ' - 1 year')),"'%Y'");
+            $balanceThisYear = $finance->getBalance(date('Y-m-d'),"'%Y'");
+
+            $data['balance'] = ['this_month' => $balanceThisMonth, 'last_month' => $balanceLastMonth , 'this_year' => $balanceThisYear, 'last_year' => $balanceLastYear];
+
+            $data['all_data'] = $finance->getPeriod("'%Y-%m'");
+
+            $this->set($data);
+
             $this->render('Finance','index');
         }
         else {
@@ -69,6 +83,7 @@ class FinanceController extends Controller
             header('Location: /myFinanceApp/Home/Index');
         }
     }
+
 
 
 }

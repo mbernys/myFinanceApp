@@ -43,7 +43,7 @@ class Finance extends Model
     public function saveToDatabase()
     {
 
-        if(static::actionDB("INSERT INTO finances (user_id, type, category_id, date, description, value) VALUES (:user_id, :type, :category_id, :date, :description, :value )", [':user_id' => $_SESSION['user_id'], ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
+        if(static::actionDB("INSERT INTO finances (user_id, type, description, category_id, value, date) VALUES (:user_id, :type, :description, :category_id , :value , :date )", [':user_id' => $_SESSION['user_id'], ':type' => $this->type, ':category_id' => $this->category_id, ':date' => $this->date, ':description' => $this->description, ':value' => $this->value])){
             $this->results = 'Value successfully added!.';
             $this->isCreate = 'true';
         } else {
@@ -68,5 +68,18 @@ class Finance extends Model
         return static::fetchAllDB("SELECT id, name FROM categories WHERE type = :type" , [':type' => $this->type]);
     }
 
+    public function getBalance(string $date, string $format)
+    {
+        $incomesSum = static::fetchOneRowFromDB("SELECT SUM(value) as sum_incomes FROM finances WHERE type='Incomes' AND DATE_FORMAT(date,:format) = DATE_FORMAT(:date,:format)",[':date' => $date , ':format' => $format],'sum_incomes');
+        $expensesSum = static::fetchOneRowFromDB("SELECT SUM(value) as sum_expenses FROM finances WHERE type='Expenses' AND DATE_FORMAT(date,:format) = DATE_FORMAT(:date,:format)",[':date' => $date , ':format' => $format],'sum_expenses');
+
+        return $incomesSum - $expensesSum;
+    }
+
+    public function getPeriod(string $format){
+
+        return static::fetchAllDB("SELECT f.date as date, c.name as category, f.description as description, f.type as type , f.value as value FROM finances f, categories c WHERE f.category_id = c.id AND DATE_FORMAT(date,:format) = DATE_FORMAT(date,:format)" , [':format' => $format]);
+
+    }
 
 }
