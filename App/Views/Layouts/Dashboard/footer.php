@@ -25,8 +25,6 @@
 <script src="/myFinanceApp/vendor/js/jquery.easing.min.js"></script>
 <script src="/myFinanceApp/vendor/js/sb-admin-2.min.js"></script>
 <script src="https://kit.fontawesome.com/56a3935afc.js" crossorigin="anonymous"></script>
-<script src="/myFinanceApp/vendor/js/Chart.min.js"></script>
-<script src="/myFinanceApp/vendor/js/chart-area-demo.js"></script>
 
 </body>
 
