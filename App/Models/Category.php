@@ -15,7 +15,7 @@ class Category extends Model
     public function saveToDatabase()
     {
         if (self::checkCategory()) {
-            if (static::actionDB("INSERT INTO `categories` (type, name) VALUES ( :type, :name )", [':type' => $this->type, ':name' => $this->name])) {
+            if (static::actionDB("INSERT INTO `categories` (user_id, type, name) VALUES (:user_id, :type, :name )", ['user_id' => $_SESSION['user_id'],':type' => $this->type, ':name' => $this->name])) {
                 $this->results = 'Category successfully added!.';
                 return true;
             } else {
@@ -45,7 +45,7 @@ class Category extends Model
 
     private function checkCategory()
     {
-        if(static::countDB("SELECT * FROM `categories` WHERE type = :type AND name = :name ", [':type' => $this->type, ':name' => $this->name]) > 0){
+        if(static::countDB("SELECT * FROM `categories` WHERE user_id = :user_id AND type = :type AND name = :name ", ['user_id' => $_SESSION['user_id'],':type' => $this->type, ':name' => $this->name]) > 0){
             return false;
         }
         return true;

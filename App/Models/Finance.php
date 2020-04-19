@@ -65,20 +65,20 @@ class Finance extends Model
 
     public function getCategories()
     {
-        return static::fetchAllDB("SELECT id, name FROM categories WHERE type = :type" , [':type' => $this->type]);
+        return static::fetchAllDB("SELECT id, name FROM categories WHERE user_id = :user_id AND type = :type" , ['user_id' => $_SESSION['user_id'],':type' => $this->type]);
     }
 
     public function getBalance(string $date, string $format)
     {
-        $incomesSum = static::fetchOneRowFromDB("SELECT SUM(value) as sum_incomes FROM finances WHERE type='Incomes' AND DATE_FORMAT(date,:format) = DATE_FORMAT(:date,:format)",[':date' => $date , ':format' => $format],'sum_incomes');
-        $expensesSum = static::fetchOneRowFromDB("SELECT SUM(value) as sum_expenses FROM finances WHERE type='Expenses' AND DATE_FORMAT(date,:format) = DATE_FORMAT(:date,:format)",[':date' => $date , ':format' => $format],'sum_expenses');
+        $incomesSum = static::fetchOneRowFromDB("SELECT SUM(value) as sum_incomes FROM finances WHERE user_id = :user_id AND  type='Incomes' AND DATE_FORMAT(date,:format) = DATE_FORMAT(:date,:format)",['user_id' => $_SESSION['user_id'],':date' => $date , ':format' => $format],'sum_incomes');
+        $expensesSum = static::fetchOneRowFromDB("SELECT SUM(value) as sum_expenses FROM finances WHERE user_id = :user_id AND  type='Expenses' AND DATE_FORMAT(date,:format) = DATE_FORMAT(:date,:format)",['user_id' => $_SESSION['user_id'],':date' => $date , ':format' => $format],'sum_expenses');
 
         return $incomesSum - $expensesSum;
     }
 
     public function getPeriod(string $format){
 
-        return static::fetchAllDB("SELECT f.date as date, c.name as category, f.description as description, f.type as type , f.value as value FROM finances f, categories c WHERE f.category_id = c.id AND DATE_FORMAT(date,:format) = DATE_FORMAT(date,:format)" , [':format' => $format]);
+        return static::fetchAllDB("SELECT f.date as date, c.name as category, f.description as description, f.type as type , f.value as value FROM finances f, categories c WHERE f.category_id = c.id AND f.user_id = :user_id AND DATE_FORMAT(date,:format) = DATE_FORMAT(date,:format)" , ['user_id' => $_SESSION['user_id'],':format' => $format]);
 
     }
 
