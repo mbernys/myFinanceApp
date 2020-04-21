@@ -1,1 +1,4 @@
 __phpLearn/
+.idea/
+vendor/
+logs/
