@@ -19,7 +19,7 @@
                                 </div>
                                 <form class="user" action="/myFinanceApp/User/Login" method="post">
                                     <div class="form-group">
-                                        <label for="email">Login / Email</label>
+                                        <label for="email">Email</label>
                                         <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="" required>
                                     </div>
                                     <div class="form-group">
