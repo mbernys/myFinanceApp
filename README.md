@@ -26,7 +26,12 @@ In MyFinanceApp were used the following technologies:
 
 ## Installation
 
-MyFinanceApp requires to launch PHP 7.4 with mySQL database.
+MyFinanceApp requires to launch:
+ - PHP 7.4,
+ - mySQL database,
+ - install composer and update autoloader,
+ - download boostrap sb-admin-2 js, css files or use CDN.
+ 
 Application start in main folder /myFinanceApp/, so you need to create this folder.
 To change mySQL credentials check file -> Core/Model.php and change in function getDB().
 
