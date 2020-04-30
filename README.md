@@ -7,6 +7,8 @@ MyFinanceApp is an applitaction to managed home budget. It was written to learn 
  - Git and Github commands,
  - Composer autoloader.
 
+This is my first application in PHP OOP after read and saw more theories and exmaples :)
+
 ## Functionallities
     
  - login and register users,
